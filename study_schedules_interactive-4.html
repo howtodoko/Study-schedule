@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grade 8 IIT Foundation Study Schedules</title>
+<style>
+:root { color-scheme: light dark; --bg: light-dark(#f5f7fb,#10141d); --panel: light-dark(#ffffff,#191f2b); --text: light-dark(#182235,#edf2fb); --muted: light-dark(#647087,#aab5c8); --line: light-dark(#e0e6ef,#30394a); --blue: light-dark(#2458a6,#8ab4ff); --green: light-dark(#246b45,#7ee0a4); --soft: light-dark(#edf3ff,#202e45); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+main { max-width: 920px; margin: 0 auto; padding: 26px 16px 44px; }
+header { margin-bottom: 22px; }
+.eyebrow { color: var(--blue); font-size: .78rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+h1 { margin: 5px 0 8px; font-size: clamp(1.8rem, 5vw, 2.7rem); line-height: 1.12; }
+.sub { color: var(--muted); margin: 0; }
+.tabs { display: flex; gap: 8px; margin: 22px 0 16px; }
+.tab { border: 1px solid var(--line); border-radius: 12px; padding: 11px 16px; background: var(--panel); color: var(--text); font: inherit; font-weight: 750; cursor: pointer; flex: 1; }
+.tab[aria-selected="true"] { background: var(--soft); border-color: var(--blue); box-shadow: inset 0 0 0 1px var(--blue); }
+.streak-card { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: center; background: var(--soft); border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin: 16px 0; }
+.streak-flame { font-size: 2.2rem; line-height: 1; }
+.streak-number { font-size: 1.6rem; font-weight: 850; line-height: 1.1; }
+.streak-meta { color: var(--muted); font-size: .88rem; }
+.streak-track { display: flex; gap: 5px; margin-top: 9px; }
+.streak-day { flex: 1; text-align: center; border: 1px solid var(--line); border-radius: 7px; padding: 5px 2px; color: var(--muted); font-size: .72rem; }
+.streak-day.done { background: var(--green); color: #10251a; border-color: var(--green); font-weight: 800; }
+.summary { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; margin-bottom: 16px; }
+.stat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 13px; }
+.stat strong { display: block; font-size: 1.12rem; }
+.stat span { color: var(--muted); font-size: .82rem; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0; flex-wrap: wrap; }
+.progress-wrap { flex: 1; min-width: 180px; }
+.progress-label { display: flex; justify-content: space-between; color: var(--muted); font-size: .84rem; margin-bottom: 6px; }
+progress { width: 100%; height: 9px; accent-color: var(--green); }
+.small-btn { border: 1px solid var(--line); background: var(--panel); color: var(--text); padding: 8px 12px; border-radius: 10px; font: inherit; font-size: .88rem; cursor: pointer; }
+.day-title { margin: 20px 0 8px; font-size: 1.05rem; }
+.timeline { display: grid; gap: 9px; }
+.item { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 14px; transition: opacity .15s, border-color .15s; }
+.item.done { opacity: .62; }
+.item.done .task-title { text-decoration: line-through; }
+.time { font-weight: 800; font-size: .9rem; color: var(--blue); }
+.task-head { display: flex; align-items: start; gap: 10px; }
+.task-head input { width: 19px; height: 19px; margin: 3px 0 0; accent-color: var(--green); flex-shrink: 0; cursor: pointer; }
+.task-title { font-weight: 780; }
+.note { color: var(--muted); font-size: .9rem; margin-top: 3px; }
+.tag { display: inline-block; font-size: .72rem; font-weight: 800; padding: 3px 7px; border-radius: 6px; background: var(--soft); margin-top: 7px; }
+.note-box { margin-top: 18px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 14px; color: var(--muted); background: var(--panel); font-size: .9rem; }
+footer { color: var(--muted); font-size: .8rem; text-align: center; margin-top: 20px; }
+[hidden] { display: none !important; }
+@media (max-width: 540px) { .item { grid-template-columns: 1fr; gap: 5px; padding: 12px; } .time { font-size: .82rem; } .summary { gap: 7px; } .stat { padding: 10px; } .stat strong { font-size: 1rem; } .stat span { font-size: .74rem; } }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="eyebrow">Grade 8 • Build the foundation</div>
+  <h1>Grade 8 Study Schedules</h1>
+  <p class="sub">CBSE mastery first, then stronger maths, science and reasoning. Keep training, Hindi, computer preparation, sleep and free time balanced. Tick off tasks as you complete them; progress is saved in this browser on this device.</p>
+</header>
+<section class="streak-card" aria-label="Daily study streak">
+  <div class="streak-flame" aria-hidden="true">🔥</div>
+  <div>
+    <div class="streak-number"><span id="currentStreak">0</span>-day streak</div>
+    <div class="streak-meta"><span id="streakMessage">Complete at least 80% of either schedule today to start your streak.</span> Best: <strong id="bestStreak">0</strong> days</div>
+    <div class="streak-track" id="streakWeek" aria-label="Last seven days"></div>
+  </div>
+</section>
+<div class="tabs" role="tablist" aria-label="Choose schedule">
+  <button class="tab" id="schoolTab" role="tab" aria-selected="true" aria-controls="schoolPanel">School day</button>
+  <button class="tab" id="holidayTab" role="tab" aria-selected="false" aria-controls="holidayPanel">Holiday</button>
+</div>
+<section id="schoolPanel" role="tabpanel" aria-labelledby="schoolTab">
+  <div class="summary">
+    <div class="stat"><strong>Maths + Science</strong><span>Alternate focused practice</span></div>
+    <div class="stat"><strong>3:30–6:00 PM</strong><span>Calisthenics block</span></div>
+    <div class="stat"><strong>8:00–8:30 PM</strong><span>Hindi movie practice</span></div>
+  </div>
+  <div class="toolbar"><div class="progress-wrap"><div class="progress-label"><span>School-day progress</span><span id="schoolProgressText">0%</span></div><progress id="schoolProgress" value="0" max="100"></progress></div><button class="small-btn" data-reset="school">Reset checks</button></div>
+  <h2 class="day-title">Daily routine</h2>
+  <div class="timeline" id="schoolTasks">
+    <article class="item" data-id="school-1"><div class="time">6:00–6:30 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Complete wake up and get ready"><div><div class="task-title">Wake up and get ready</div><div class="note">Wash up and prepare for the day.</div></div></div></div></article>
+    <article class="item" data-id="school-2"><div class="time">6:30–7:00 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Complete active recall and Hindi speaking"><div><div class="task-title">Active recall + Hindi speaking</div><div class="note">Spend 10 minutes speaking Hindi aloud, then use 20 minutes to recall yesterday’s lessons without looking at your notes. Rotate Kannada, Social Science and Computer through the week.</div></div></div><span class="tag">Daily practice</span></div></article>
+    <article class="item" data-id="school-3"><div class="time">School hours</div><div><div class="task-head"><input type="checkbox" aria-label="Note school lessons and doubts"><div><div class="task-title">School</div><div class="note">Note important topics and doubts to review at home.</div></div></div></div></article>
+    <article class="item" data-id="school-4"><div class="time">3:13–3:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Complete snack and prepare"><div><div class="task-title">Snack and prepare for training</div><div class="note">Get ready before the fixed calisthenics block.</div></div></div></div></article>
+    <article class="item" data-id="school-5"><div class="time">3:30–6:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Complete calisthenics block"><div><div class="task-title">Calisthenics</div><div class="note">Keep the usual block, including breaks and recovery.</div></div></div><span class="tag">Fixed time</span></div></article>
+    <article class="item" data-id="school-14"><div class="time">6:00–6:20 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Shower snack and recover"><div><div class="task-title">Shower, snack and recovery</div><div class="note">Freshen up and eat after training. Don’t start studying hungry or skip recovery.</div></div></div></div></article>
+    <article class="item" data-id="school-6"><div class="time">6:20–7:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Complete Grade 8 maths or science practice"><div><div class="task-title">Focused Maths or Science</div><div class="note">Maths: 5 min review of old errors, 25 min solving, 10 min checking. Science: explain one concept from memory, draw/label if needed, then answer application questions. Alternate daily.</div></div></div><span class="tag">Alternate daily</span></div></article>
+    <article class="item" data-id="school-17"><div class="time">7:00–7:20 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Dinner"><div><div class="task-title">Dinner</div><div class="note">Eat properly and take a short break.</div></div></div></div></article>
+    <article class="item" data-id="school-8"><div class="time">7:20–7:50 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Complete homework and review lessons"><div><div class="task-title">Homework + lesson review</div><div class="note">Finish the most urgent homework, then close your book and recall key points. If homework takes longer, prioritise deadlines and move extra practice to the weekend.</div></div></div></div></article>
+    <article class="item" data-id="school-9"><div class="time">7:50–8:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Prepare for tomorrow"><div><div class="task-title">Prepare for tomorrow</div><div class="note">Check your bag, books and the next day’s tasks so the movie slot starts on time.</div></div></div></div></article>
+    <article class="item" data-id="school-10"><div class="time">8:00–8:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Watch a Hindi movie or scene"><div><div class="task-title">Hindi movie time</div><div class="note">Watch 30 minutes with Hindi audio and subtitles. Repeat three useful lines aloud; this counts as free-time entertainment and listening practice.</div></div></div><span class="tag">30 min</span></div></article>
+    <article class="item" data-id="school-13"><div class="time">8:30–9:15 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Enjoy free time"><div><div class="task-title">Free time</div><div class="note">Games, anime, friends or hobbies.</div></div></div><span class="tag">Protected</span></div></article>
+    <article class="item" data-id="school-11"><div class="time">9:15–9:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Wind down"><div><div class="task-title">Wind down</div><div class="note">Get ready for bed and reduce screen use.</div></div></div></div></article>
+    <article class="item" data-id="school-12"><div class="time">9:30 PM–6:00 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Get eight and a half hours of sleep"><div><div class="task-title">Sleep</div><div class="note">8.5 hours. Teens should generally aim for 8–10 hours; go to bed earlier if you feel tired.</div></div></div></div></article>
+  </div>
+  <div class="note-box"><strong>How to study effectively:</strong><ul><li><strong>Maths error notebook:</strong> for every mistake, write the question/topic, what went wrong (calculation, sign, concept or careless reading), the corrected steps, and redo it 2–3 days later.</li><li><strong>Active recall:</strong> close the book and write or say what you remember. Revisit difficult material after 1 day, 3 days and 7 days.</li><li><strong>Hindi movies:</strong> use Hindi audio and subtitles; repeat three lines aloud, then retell the scene in your own Hindi.</li><li><strong>Weekly test:</strong> once each weekend, take a short timed test on topics already taught, then spend time correcting every error.</li><li><strong>Grade 8 IIT foundation:</strong> master school algebra, fractions, equations, geometry, logical reasoning and Science concepts before rushing into senior-grade JEE material. A schedule cannot guarantee admission.</li></ul></div>
+</section>
+<section id="holidayPanel" role="tabpanel" aria-labelledby="holidayTab" hidden>
+  <div class="summary">
+    <div class="stat"><strong>Maths + Science</strong><span>Alternate deep-work focus</span></div>
+    <div class="stat"><strong>1 hour</strong><span>Computer competition</span></div>
+    <div class="stat"><strong>30 min</strong><span>Hindi speaking + movie practice built in</span></div>
+  </div>
+  <div class="toolbar"><div class="progress-wrap"><div class="progress-label"><span>Holiday progress</span><span id="holidayProgressText">0%</span></div><progress id="holidayProgress" value="0" max="100"></progress></div><button class="small-btn" data-reset="holiday">Reset checks</button></div>
+  <h2 class="day-title">Daily routine</h2>
+  <div class="timeline" id="holidayTasks">
+    <article class="item" data-id="holiday-1"><div class="time">8:00–8:30 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Wake up and get ready"><div><div class="task-title">Wake up and get ready</div><div class="note">Breakfast and morning routine.</div></div></div></div></article>
+    <article class="item" data-id="holiday-2"><div class="time">8:30–9:30 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Maths or Science foundation practice"><div><div class="task-title">Maths or Science foundation</div><div class="note">Alternate daily. Maths: review errors, solve Grade 8 problems and check each line. Science: explain one concept from memory, practise diagrams and application questions.</div></div></div><span class="tag">Alternate daily</span></div></article>
+    <article class="item" data-id="holiday-3"><div class="time">9:30–10:00 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Take a break"><div><div class="task-title">Break and free time</div><div class="note">Move around, rest or have a snack.</div></div></div></div></article>
+    <article class="item" data-id="holiday-4"><div class="time">10:00–11:00 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Computer competition preparation"><div><div class="task-title">Computer competition preparation</div><div class="note">Study the actual syllabus, computer fundamentals, digital technology, logical reasoning and competition-style MCQs.</div></div></div><span class="tag">Computer</span></div></article>
+    <article class="item" data-id="holiday-5"><div class="time">11:00 AM–12:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Free time"><div><div class="task-title">Free time</div><div class="note">Hobbies, games or relaxing.</div></div></div></div></article>
+    <article class="item" data-id="holiday-6"><div class="time">12:00–12:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Reading time"><div><div class="task-title">Reading</div><div class="note">A book, general knowledge material or computer theory.</div></div></div><span class="tag">Reading</span></div></article>
+    <article class="item" data-id="holiday-7"><div class="time">12:30–1:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Lunch and free time"><div><div class="task-title">Lunch and free time</div><div class="note">Eat and take a proper break.</div></div></div></div></article>
+    <article class="item" data-id="holiday-8"><div class="time">1:30–2:15 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Maths challenge or weekly test"><div><div class="task-title">Maths challenge / weekly test</div><div class="note">Most days: age-appropriate reasoning and challenging Grade 8 questions. Once a week: take a short timed mixed test on topics already taught, then record and correct every mistake.</div></div></div><span class="tag">Problem-solving</span></div></article>
+    <article class="item" data-id="holiday-9"><div class="time">2:15–2:45 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Hindi speaking and school practice"><div><div class="task-title">Hindi speaking + CBSE practice</div><div class="note">Speak aloud for 10 minutes, learn five useful words, then practise one grammar point or textbook answer.</div></div></div><span class="tag">Hindi</span></div></article>
+    <article class="item" data-id="holiday-15"><div class="time">2:45–3:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Free time and prepare for training"><div><div class="task-title">Free time and prepare for training</div><div class="note">Snack, relax and get ready.</div></div></div></div></article>
+    <article class="item" data-id="holiday-10"><div class="time">3:30–6:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Calisthenics block"><div><div class="task-title">Calisthenics</div><div class="note">Keep the usual block, including appropriate breaks and recovery.</div></div></div><span class="tag">Fixed time</span></div></article>
+    <article class="item" data-id="holiday-11"><div class="time">6:00–6:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Shower food and recovery"><div><div class="task-title">Shower, food and recovery</div><div class="note">Eat, freshen up and recover after training.</div></div></div></div></article>
+    <article class="item" data-id="holiday-12"><div class="time">6:30–7:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Watch a Hindi movie or scene"><div><div class="task-title">Hindi movie time</div><div class="note">Use Hindi audio and subtitles. Repeat three lines, then briefly retell the scene in Hindi.</div></div></div><span class="tag">30 min of free time</span></div></article>
+    <article class="item" data-id="holiday-16"><div class="time">7:00–9:30 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Evening free time"><div><div class="task-title">Free time</div><div class="note">Games, anime, friends or hobbies.</div></div></div><span class="tag">Free time</span></div></article>
+    <article class="item" data-id="holiday-13"><div class="time">9:30–10:00 PM</div><div><div class="task-head"><input type="checkbox" aria-label="Wind down"><div><div class="task-title">Wind down</div><div class="note">Prepare for bed and relax.</div></div></div></div></article>
+    <article class="item" data-id="holiday-14"><div class="time">10:00 PM–8:00 AM</div><div><div class="task-head"><input type="checkbox" aria-label="Get ten hours of sleep"><div><div class="task-title">Sleep</div><div class="note">10 hours.</div></div></div></div></article>
+  </div>
+  <div class="note-box"><strong>How to use this holiday schedule:</strong><ul><li><strong>Maths error notebook:</strong> label each mistake as calculation, sign, concept or question-reading; write corrected steps and redo it after 2–3 days.</li><li><strong>Active recall:</strong> close your notes and explain the concept without looking. Review hard topics after 1 day, 3 days and 7 days.</li><li><strong>Weekly Science practice:</strong> at least once a week, explain a Science topic from memory, draw a diagram if relevant and answer application questions.</li><li><strong>Computer competition:</strong> use the official syllabus, practise questions and review wrong answers instead of only rereading notes.</li><li><strong>Hindi:</strong> speak aloud daily; during the 30-minute movie slot, repeat three lines and retell the scene.</li><li><strong>IIT foundation:</strong> build Grade 8 algebra, fractions, geometry, logical reasoning and Science understanding first. Increase difficulty gradually and keep breaks/free time. No timetable can guarantee admission.</li></ul></div>
+</section>
+<footer>Interactive checklist • Switch schedules with the tabs • Checkmarks save in this browser on this device</footer>
+</main>
+<script>
+const tabs = [document.getElementById('schoolTab'), document.getElementById('holidayTab')];
+const panels = [document.getElementById('schoolPanel'), document.getElementById('holidayPanel')];
+function selectTab(index) {
+  tabs.forEach((tab, i) => tab.setAttribute('aria-selected', String(i === index)));
+  panels.forEach((panel, i) => panel.hidden = i !== index);
+}
+tabs.forEach((tab, i) => tab.addEventListener('click', () => selectTab(i)));
+const dateKey = (date = new Date()) => {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+};
+const today = dateKey();
+const checkboxKey = id => `schedule-check-${today}-${id}`;
+function updateProgress(which) {
+  const container = document.getElementById(which + 'Tasks');
+  const boxes = [...container.querySelectorAll('input[type="checkbox"]')];
+  const count = boxes.filter(box => box.checked).length;
+  const percent = boxes.length ? Math.round(count / boxes.length * 100) : 0;
+  document.getElementById(which + 'Progress').value = percent;
+  document.getElementById(which + 'ProgressText').textContent = percent + '% (' + count + '/' + boxes.length + ')';
+  return percent;
+}
+function getCompletedDays() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem('study-streak-completed-days') || '[]');
+    return Array.isArray(parsed) ? [...new Set(parsed.filter(d => /^\d{4}-\d{2}-\d{2}$/.test(d)))].sort() : [];
+  } catch (e) { return []; }
+}
+function streakLength(days, endingOn) {
+  const set = new Set(days);
+  let count = 0;
+  const cursor = new Date(endingOn + 'T12:00:00');
+  while (set.has(dateKey(cursor))) {
+    count++;
+    cursor.setDate(cursor.getDate() - 1);
+  }
+  return count;
+}
+function updateStreak() {
+  const days = getCompletedDays();
+  const todayDone = days.includes(today);
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+  const current = streakLength(days, todayDone ? today : dateKey(yesterday));
+  let best = 0, run = 0, previous = null;
+  for (const day of days) {
+    const dt = new Date(day + 'T12:00:00');
+    if (previous) {
+      const expected = new Date(previous); expected.setDate(expected.getDate() + 1);
+      run = dateKey(expected) === day ? run + 1 : 1;
+    } else run = 1;
+    best = Math.max(best, run);
+    previous = dt;
+  }
+  document.getElementById('currentStreak').textContent = current;
+  document.getElementById('bestStreak').textContent = best;
+  document.getElementById('streakMessage').textContent = todayDone
+    ? 'Streak saved for today. Keep it balanced.'
+    : 'Complete at least 80% of either schedule today to earn today’s streak.';
+  const track = document.getElementById('streakWeek');
+  track.innerHTML = '';
+  const names = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  for (let offset = 6; offset >= 0; offset--) {
+    const d = new Date(); d.setDate(d.getDate() - offset);
+    const key = dateKey(d);
+    const cell = document.createElement('div');
+    cell.className = 'streak-day' + (days.includes(key) ? ' done' : '');
+    cell.textContent = names[d.getDay()];
+    cell.title = `${key}: ${days.includes(key) ? 'streak earned' : 'not earned'}`;
+    track.appendChild(cell);
+  }
+}
+function saveCheck(box) {
+  const item = box.closest('.item');
+  try { localStorage.setItem(checkboxKey(item.dataset.id), box.checked ? '1' : '0'); } catch (e) {}
+  item.classList.toggle('done', box.checked);
+  updateProgress(item.dataset.id.split('-')[0]);
+  maybeEarnStreak();
+}
+function maybeEarnStreak() {
+  const qualifies = updateProgress('school') >= 80 || updateProgress('holiday') >= 80;
+  if (qualifies) {
+    const days = getCompletedDays();
+    if (!days.includes(today)) {
+      days.push(today);
+      try { localStorage.setItem('study-streak-completed-days', JSON.stringify(days)); } catch (e) {}
+    }
+  }
+  updateStreak();
+}
+document.querySelectorAll('.item input[type="checkbox"]').forEach(box => {
+  const id = box.closest('.item').dataset.id;
+  try { box.checked = localStorage.getItem(checkboxKey(id)) === '1'; } catch (e) {}
+  box.closest('.item').classList.toggle('done', box.checked);
+  box.addEventListener('change', () => saveCheck(box));
+});
+updateProgress('school'); updateProgress('holiday'); updateStreak();
+document.querySelectorAll('[data-reset]').forEach(button => button.addEventListener('click', () => {
+  const which = button.dataset.reset;
+  document.querySelectorAll('#' + which + 'Tasks input[type="checkbox"]').forEach(box => {
+    box.checked = false;
+    box.closest('.item').classList.remove('done');
+    try { localStorage.removeItem(checkboxKey(box.closest('.item').dataset.id)); } catch (e) {}
+  });
+  updateProgress(which);
+  updateStreak();
+}));
+</script>
+</body>
+</html>
